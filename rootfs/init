@@ -1,0 +1,8 @@
+#!/bin/busybox sh
+
+echo "Booted minimal rootfs!"
+
+/test || echo "test program missing"
+
+exec /bin/busybox sh
+
