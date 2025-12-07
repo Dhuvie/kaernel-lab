@@ -1,101 +1,98 @@
-flowchart LR
+flowchart TD
 
-%% ========== ROW 1 ==========
+subgraph R1[ ]
+direction LR
 A[Start] --> B[Select Safe Development Environment]
 B --> C[Reject Physical Linux and Virtual Machine]
 C --> D[Choose GitHub Codespaces]
 D --> E[Launch Cloud Linux Environment]
+end
 
-%% DROP DOWN
-E --> E1[ ]
+subgraph R2[ ]
+direction RL
+I[Enter Kernel Source Directory] --> H[Clone Linux Kernel Source]
+H --> G[Open Terminal]
+end
 
-%% ========== ROW 2 (Reverse Direction) ==========
-I[Enter Kernel Source Directory]
-G[Clone Linux Kernel Source] --> I
-F[Open Terminal] --> G
-E1 --> F
+E --> I
 
-%% DROP DOWN
-I --> I1[ ]
-
-%% ========== ROW 3 ==========
-I1 --> J[Create hellosys.c File]
-J --> K[Write Kernel System Call Code]
+subgraph R3[ ]
+direction LR
+J[Create hellosys.c File] --> K[Write Kernel System Call Code]
 K --> L[Define SYSCALL_DEFINE0]
 L --> M[Use printk for Kernel Output]
+end
 
-%% DROP DOWN
-M --> M1[ ]
+I --> J
 
-%% ========== ROW 4 (Reverse Direction) ==========
-R[Add sys_hellosys Declaration]
-Q[Edit syscalls.h] --> R
-P[Declare Function Prototype] --> Q
-O[Assign Syscall Number 548] --> P
-N[Edit syscall_64.tbl] --> O
-M1 --> N
+subgraph R4[ ]
+direction RL
+R[Add sys_hellosys Declaration] --> Q[Edit syscalls.h]
+Q --> P[Declare Function Prototype]
+P --> O[Assign Syscall Number 548]
+O --> N[Edit syscall_64.tbl]
+end
 
-%% DROP DOWN
-R --> R1[ ]
+M --> R
 
-%% ========== ROW 5 ==========
-R1 --> S[Create test.c Program]
-S --> T[Write User Space Code]
+subgraph R5[ ]
+direction LR
+S[Create test.c Program] --> T[Write User Space Code]
 T --> U[Use syscall Instruction]
 U --> V[Transfer Control to Kernel Space]
+end
 
-%% DROP DOWN
-V --> V1[ ]
+N --> S
 
-%% ========== ROW 6 (Reverse Direction) ==========
-AA[Create Init Script]
-Z[Install BusyBox] --> AA
-Y[Create Directory Structure] --> Z
-X[Create Minimal Root File System] --> Y
-V1 --> X
+subgraph R6[ ]
+direction RL
+AA[Create Init Script] --> Z[Install BusyBox]
+Z --> Y[Create Directory Structure]
+Y --> X[Create Minimal Root File System]
+end
 
-%% DROP DOWN
-AA --> AA1[ ]
+V --> AA
 
-%% ========== ROW 7 ==========
-AA1 --> AB[Pack RootFS into initramfs Image]
-AB --> AC[Run make defconfig]
+subgraph R7[ ]
+direction LR
+AB[Pack RootFS into initramfs Image] --> AC[Run make defconfig]
 AC --> AD[Compile Kernel using make]
 AD --> AE[Generate bzImage Kernel]
+end
 
-%% DROP DOWN
-AE --> AE1[ ]
+X --> AB
 
-%% ========== ROW 8 (Reverse Direction) ==========
-AJ[Boot Kernel Using QEMU]
-AI[Load initramfs Image] --> AJ
-AH[Load Kernel Image] --> AI
-AE1 --> AH
+subgraph R8[ ]
+direction RL
+AJ[Boot Kernel Using QEMU] --> AI[Load initramfs Image]
+AI --> AH[Load Kernel Image]
+end
 
-%% DROP DOWN
-AJ --> AJ1[ ]
+AE --> AJ
 
-%% ========== ROW 9 ==========
-AJ1 --> AK[Kernel Boots Successfully]
-AK --> AL[Init Script Executes]
+subgraph R9[ ]
+direction LR
+AK[Kernel Boots Successfully] --> AL[Init Script Executes]
 AL --> AM[Test Program Calls System Call]
 AM --> AN[Kernel Prints Hello World]
+end
 
-%% DROP DOWN
-AN --> AN1[ ]
+AJ --> AK
 
-%% ========== ROW 10 (Reverse Direction) ==========
-AR[Create Portable ZIP]
-AQ[Export bzImage and initramfs] --> AR
-AP[BusyBox Shell Starts] --> AQ
-AN1 --> AP
+subgraph R10[ ]
+direction RL
+AR[Create Portable ZIP] --> AQ[Export bzImage and initramfs]
+AQ --> AP[BusyBox Shell Starts]
+end
 
-%% DROP DOWN
-AR --> AR1[ ]
+AN --> AR
 
-%% ========== ROW 11 ==========
-AR1 --> AS[Transfer ZIP to Windows]
-AS --> AT[Install QEMU on Windows]
+subgraph R11[ ]
+direction LR
+AS[Transfer ZIP to Windows] --> AT[Install QEMU on Windows]
 AT --> AU[Boot Custom Kernel]
 AU --> AV[Verify Hello World Output]
 AV --> AW[Project Successfully Completed]
+end
+
+AP --> AS
